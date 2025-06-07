@@ -28,8 +28,8 @@ const ArtistCard = ({ artist }) => {
             <h3 className="text-lg font-semibold">{artist.name}</h3>
             {artist.categories?.length > 0 && (
               <p className="text-sm text-muted-foreground">
-                {artist.categories.join(", ")}
-              </p>
+  {artist.categories.map((cat) => cat.name).join(", ")}
+</p>
             )}
           </div>
           <div className="text-center">

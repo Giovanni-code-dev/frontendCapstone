@@ -1,7 +1,12 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
-import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 import {
   Select,
   SelectTrigger,
@@ -9,55 +14,66 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select"
-import { Calendar } from "@/components/ui/calendar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { format } from "date-fns"
 import { Search } from "lucide-react"
+import ComboboxCity from "@/components/search/ComboboxCity"
 
-/**
- * 🎭 Opzioni disponibili per la categoria artista
- */
-const categories = [
-  "mimo",
-  "clown",
-  "giocoleria",
-  "danza aerea",
-  "fuoco",
-  "trampoli",
-]
-
-/**
- * 🔍 SearchBar
- * Barra di ricerca avanzata con filtri URL-based.
- * Va usata dentro una Navbar già esistente (non contiene logo né avatar).
- */
 const SearchBar = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  // 🔎 Stato locale dei filtri utente
   const [filters, setFilters] = useState({
     city: "",
     category: "",
     date: null,
   })
 
+  const [categories, setCategories] = useState([])
   const hasActiveFilters = location.search.length > 0
 
-  // 🚀 Costruisce URL con query string e reindirizza
+  const today = new Date()
+  const fromDate = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/categories`)
+        if (!res.ok) throw new Error("Errore nel caricamento categorie")
+        const data = await res.json()
+        console.log("✅ Categorie caricate dal backend:", data)
+        setCategories(data)
+      } catch (error) {
+        console.error("❌ Errore nel fetch delle categorie:", error)
+      }
+    }
+
+    fetchCategories()
+  }, [])
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search)
+    const city = params.get("city") || ""
+    const category = params.get("category") || ""
+    const dateParam = params.get("date")
+    const parsedDate = dateParam ? new Date(dateParam) : null
+
+    setFilters({
+      city,
+      category,
+      date: parsedDate && !isNaN(parsedDate) ? parsedDate : null,
+    })
+  }, [location.search])
+
   const handleSearch = () => {
     const params = new URLSearchParams()
     if (filters.city) params.set("city", filters.city)
     if (filters.category) params.set("category", filters.category)
     if (filters.date instanceof Date && !isNaN(filters.date)) {
-      const formattedDate = format(filters.date, "yyyy-MM-dd")
-      params.set("date", formattedDate)
+      params.set("date", format(filters.date, "yyyy-MM-dd"))
     }
-
     navigate(`/home?${params.toString()}`)
   }
 
-  // ♻️ Ripristina lo stato iniziale e rimuove query string
   const handleReset = () => {
     setFilters({ city: "", category: "", date: null })
     navigate("/home")
@@ -65,19 +81,18 @@ const SearchBar = () => {
 
   return (
     <div className="flex w-full max-w-5xl items-center rounded-full border shadow-md bg-white overflow-hidden divide-x divide-border px-2">
-      {/* 🏙️ Città */}
-      <div className="px-4 py-3 flex-1 min-w-[120px]">
+      {/* 📍 Città */}
+      <div className="px-4 py-3 flex-1 min-w-[140px]">
         <div className="text-xs font-semibold text-muted-foreground">Dove</div>
-        <Input
-          variant="ghost"
-          className="p-0 border-0 focus-visible:ring-0 text-sm"
-          placeholder="Cerca destinazioni"
+        <ComboboxCity
           value={filters.city}
-          onChange={(e) => setFilters((prev) => ({ ...prev, city: e.target.value }))}
+          onChange={(city) =>
+            setFilters((prev) => ({ ...prev, city }))
+          }
         />
       </div>
 
-      {/* 📅 Data */}
+      {/* 📅 Data evento */}
       <div className="px-4 py-3 flex-1 min-w-[140px]">
         <div className="text-xs font-semibold text-muted-foreground">Quando</div>
         <Popover>
@@ -90,36 +105,57 @@ const SearchBar = () => {
             <Calendar
               mode="single"
               selected={filters.date}
-              onSelect={(date) => setFilters((prev) => ({ ...prev, date }))}
+              onSelect={(date) =>
+                setFilters((prev) => ({ ...prev, date }))
+              }
+              disabled={(date) => {
+                const today = new Date()
+                today.setHours(0, 0, 0, 0)
+                return date < today
+              }}
               initialFocus
             />
           </PopoverContent>
         </Popover>
       </div>
 
-      {/* 🎭 Categoria */}
+      {/* 🎭 Categoria dinamica */}
       <div className="px-4 py-3 flex-1 min-w-[140px]">
         <div className="text-xs font-semibold text-muted-foreground">Categoria</div>
         <Select
-          value={filters.category}
-          onValueChange={(value) => setFilters((prev) => ({ ...prev, category: value }))}
+          value={filters.category || "all"}
+          onValueChange={(value) =>
+            setFilters((prev) => ({
+              ...prev,
+              category: value === "all" ? "" : value,
+            }))
+          }
         >
           <SelectTrigger variant="ghost" className="p-0 h-auto text-sm font-normal">
-            <SelectValue placeholder="Seleziona" />
+            <SelectValue placeholder="Tutte le categorie" />
           </SelectTrigger>
           <SelectContent>
-            {categories.map((cat) => (
-              <SelectItem key={cat} value={cat}>
-                {cat.charAt(0).toUpperCase() + cat.slice(1)}
-              </SelectItem>
-            ))}
+            <SelectItem value="all">Tutte le categorie</SelectItem>
+            {categories
+              .filter((cat) => {
+                const name = typeof cat === "string" ? cat : cat.name
+                return typeof name === "string" && name.trim() !== ""
+              })
+              .map((cat) => {
+                const name = typeof cat === "string" ? cat : cat.name
+                const key = typeof cat === "string" ? cat : cat._id
+                return (
+                  <SelectItem key={key} value={name}>
+                    {name.charAt(0).toUpperCase() + name.slice(1)}
+                  </SelectItem>
+                )
+              })}
           </SelectContent>
         </Select>
       </div>
 
-      {/* 🎯 Pulsanti azione */}
+      {/* 🔘 Pulsanti azione */}
       <div className="flex items-center gap-2 px-4 py-3">
-        {/* Cerca */}
         <Button
           size="icon"
           className="rounded-full bg-red-500 hover:bg-red-600 text-white"
@@ -128,7 +164,6 @@ const SearchBar = () => {
           <Search className="h-5 w-5" />
         </Button>
 
-        {/* Reset (solo se filtri attivi) */}
         {hasActiveFilters && (
           <Button
             variant="outline"

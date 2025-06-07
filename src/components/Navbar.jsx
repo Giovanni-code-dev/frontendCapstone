@@ -5,6 +5,8 @@ import useLogout from "@/hooks/useLogout"
 
 import SearchBar from "@/components/SearchBar"
 import SearchMobileDialog from "@/components/search/SearchMobileDialog"
+import SearchMobilePopover from "@/components/search/SearchMobilePopover"
+
 
 import {
   Avatar,
@@ -57,7 +59,7 @@ const Navbar = () => {
       <div className="flex items-center justify-between w-full h-12 sm:h-auto">
         {/* Logo */}
         <Link to="/home" className="text-xl font-bold">
-          Floating Dreams
+          BaralliEnterprise 
         </Link>
 
         {/* Azioni: avatar + menu */}
@@ -65,7 +67,8 @@ const Navbar = () => {
 
           {/* Pulsante ricerca mobile */}
           <div className="block md:hidden">
-            <SearchMobileDialog />
+            <SearchMobilePopover />
+            
           </div>
 
           {/* Avatar utente */}

@@ -1,12 +1,3 @@
-// ComboboxCity.jsx
-//
-// Questo componente sostituisce CityAutocomplete con una UI coerente a shadcn/ui.
-// Mostra un autocomplete con suggerimenti di città provenienti dal backend.
-//
-// Props:
-// - selectedCity (string): città selezionata attualmente
-// - setSelectedCity (function): funzione per aggiornare la città selezionata
-
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import {
@@ -14,11 +5,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { Command, CommandInput, CommandList, CommandItem } from "@/components/ui/command"
+import { Command, CommandInput, CommandList, CommandItem, CommandEmpty } from "@/components/ui/command"
 import { ChevronsUpDown, Check } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-const ComboboxCity = ({ selectedCity, setSelectedCity }) => {
+const ComboboxCity = ({ value, onChange }) => {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState("")
   const [suggestions, setSuggestions] = useState([])
@@ -51,36 +42,58 @@ const ComboboxCity = ({ selectedCity, setSelectedCity }) => {
           aria-expanded={open}
           className="w-full justify-between"
         >
-          {selectedCity ? selectedCity : "Seleziona città"}
+          {value || "Seleziona città"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
+
       <PopoverContent className="w-full p-0">
         <Command>
           <CommandInput
             placeholder="Cerca città..."
             value={query}
             onValueChange={setQuery}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault()
+                onChange(query)
+                setOpen(false)
+              }
+            }}
           />
           <CommandList>
-            {suggestions.map((city, index) => (
-              <CommandItem
-                key={index}
-                value={city}
-                onSelect={(value) => {
-                  setSelectedCity(value)
-                  setOpen(false)
-                }}
-              >
-                <Check
-                  className={cn(
-                    "mr-2 h-4 w-4",
-                    selectedCity === city ? "opacity-100" : "opacity-0"
-                  )}
-                />
-                {city}
-              </CommandItem>
-            ))}
+            {suggestions.length > 0 ? (
+              suggestions.map((city, index) => (
+                <CommandItem
+                  key={index}
+                  value={city}
+                  onSelect={(value) => {
+                    onChange(value)
+                    setOpen(false)
+                  }}
+                >
+                  <Check
+                    className={cn(
+                      "mr-2 h-4 w-4",
+                      value === city ? "opacity-100" : "opacity-0"
+                    )}
+                  />
+                  {city}
+                </CommandItem>
+              ))
+            ) : (
+              <CommandEmpty>
+                <div
+                  className="cursor-pointer px-2 py-1 hover:bg-accent"
+                  onClick={() => {
+                    onChange(query)
+                    setOpen(false)
+                  }}
+                >
+                  Usa: <strong>{query}</strong>
+                </div>
+              </CommandEmpty>
+            )}
           </CommandList>
         </Command>
       </PopoverContent>
