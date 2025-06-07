@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import SearchBar from "@/components/SearchBar"
+import { useSearchParams } from "react-router-dom"
 import ArtistCard from "@/components/ArtistCard"
 import { format } from "date-fns"
 
@@ -12,46 +12,40 @@ const shuffleArray = (array) =>
 
 const HomeCustomer = () => {
   const [filteredArtists, setFilteredArtists] = useState([])
+  const [searchParams] = useSearchParams()
 
-  const handleSearch = async (filters = {}) => {
-    const params = new URLSearchParams()
+  const city = searchParams.get("city")
+  const category = searchParams.get("category")
+  const date = searchParams.get("date")
 
-    if (filters.city) params.set("city", filters.city)
-    if (filters.category) params.set("category", filters.category)
-    if (filters.date instanceof Date && !isNaN(filters.date)) {
-      const formatted = format(filters.date, "yyyy-MM-dd")
-      params.set("date", formatted)
-      console.log("📅 Data selezionata:", formatted)
-    }
-
-    const url = `${import.meta.env.VITE_BACKEND_URL}/artist/public?${params.toString()}`
-    console.log("🔍 URL richiesta:", url)
-
-    try {
-      const res = await fetch(url)
-      if (!res.ok) throw new Error(`Errore HTTP ${res.status}`)
-      const data = await res.json()
-      console.log("🎨 Artisti ricevuti:", data)
-      const shuffled = shuffleArray(data)
-      setFilteredArtists(shuffled)
-    } catch (error) {
-      console.error("❌ Errore nella fetch artisti:", error)
-    }
-  }
-
-  const handleReset = () => {
-    console.log("🔄 Reset filtri")
-    handleSearch({})
-  }
-
-  // 🔁 Esegui la prima ricerca al caricamento
   useEffect(() => {
-    handleSearch()
-  }, [])
+    const fetchArtists = async () => {
+      const params = new URLSearchParams()
+
+      if (city) params.set("city", city)
+      if (category) params.set("category", category)
+      if (date) params.set("date", date)
+
+      const url = `${import.meta.env.VITE_BACKEND_URL}/artist/public?${params.toString()}`
+      console.log("🔍 URL richiesta:", url)
+
+      try {
+        const res = await fetch(url)
+        if (!res.ok) throw new Error(`Errore HTTP ${res.status}`)
+        const data = await res.json()
+        console.log("🎨 Artisti ricevuti:", data)
+        const shuffled = shuffleArray(data)
+        setFilteredArtists(shuffled)
+      } catch (error) {
+        console.error("❌ Errore nella fetch artisti:", error)
+      }
+    }
+
+    fetchArtists()
+  }, [city, category, date])
 
   return (
     <div className="p-4 space-y-6">
-      <SearchBar onSearch={handleSearch} onReset={handleReset} />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {filteredArtists.length > 0 ? (
           filteredArtists.map((artist) => (

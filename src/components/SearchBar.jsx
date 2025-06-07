@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate, useLocation } from "react-router-dom"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import {
@@ -11,8 +12,11 @@ import {
 import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { format } from "date-fns"
+import { Search } from "lucide-react"
 
-// Opzioni di categoria predefinite
+/**
+ * 🎭 Opzioni disponibili per la categoria artista
+ */
 const categories = [
   "mimo",
   "clown",
@@ -22,37 +26,86 @@ const categories = [
   "trampoli",
 ]
 
-const SearchBar = ({ onSearch, onReset }) => {
+/**
+ * 🔍 SearchBar
+ * Barra di ricerca avanzata con filtri URL-based.
+ * Va usata dentro una Navbar già esistente (non contiene logo né avatar).
+ */
+const SearchBar = () => {
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  // 🔎 Stato locale dei filtri utente
   const [filters, setFilters] = useState({
-    category: "",
     city: "",
+    category: "",
     date: null,
   })
 
-  // Gestione ricerca
+  const hasActiveFilters = location.search.length > 0
+
+  // 🚀 Costruisce URL con query string e reindirizza
   const handleSearch = () => {
-    onSearch(filters)
+    const params = new URLSearchParams()
+    if (filters.city) params.set("city", filters.city)
+    if (filters.category) params.set("category", filters.category)
+    if (filters.date instanceof Date && !isNaN(filters.date)) {
+      const formattedDate = format(filters.date, "yyyy-MM-dd")
+      params.set("date", formattedDate)
+    }
+
+    navigate(`/home?${params.toString()}`)
   }
 
-  // Gestione reset
+  // ♻️ Ripristina lo stato iniziale e rimuove query string
   const handleReset = () => {
-    setFilters({ category: "", city: "", date: null })
-    if (onReset) onReset()
+    setFilters({ city: "", category: "", date: null })
+    navigate("/home")
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-4 flex flex-col sm:flex-row gap-4 items-end">
-      {/* Categoria */}
-      <div className="flex-1">
-        <label className="block mb-1 text-sm font-medium">Categoria</label>
+    <div className="flex w-full max-w-5xl items-center rounded-full border shadow-md bg-white overflow-hidden divide-x divide-border px-2">
+      {/* 🏙️ Città */}
+      <div className="px-4 py-3 flex-1 min-w-[120px]">
+        <div className="text-xs font-semibold text-muted-foreground">Dove</div>
+        <Input
+          variant="ghost"
+          className="p-0 border-0 focus-visible:ring-0 text-sm"
+          placeholder="Cerca destinazioni"
+          value={filters.city}
+          onChange={(e) => setFilters((prev) => ({ ...prev, city: e.target.value }))}
+        />
+      </div>
+
+      {/* 📅 Data */}
+      <div className="px-4 py-3 flex-1 min-w-[140px]">
+        <div className="text-xs font-semibold text-muted-foreground">Quando</div>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="ghost" className="p-0 h-auto text-sm font-normal">
+              {filters.date ? format(filters.date, "PPP") : "Aggiungi data"}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0">
+            <Calendar
+              mode="single"
+              selected={filters.date}
+              onSelect={(date) => setFilters((prev) => ({ ...prev, date }))}
+              initialFocus
+            />
+          </PopoverContent>
+        </Popover>
+      </div>
+
+      {/* 🎭 Categoria */}
+      <div className="px-4 py-3 flex-1 min-w-[140px]">
+        <div className="text-xs font-semibold text-muted-foreground">Categoria</div>
         <Select
           value={filters.category}
-          onValueChange={(value) =>
-            setFilters((f) => ({ ...f, category: value.toLowerCase() }))
-          }
+          onValueChange={(value) => setFilters((prev) => ({ ...prev, category: value }))}
         >
-          <SelectTrigger>
-            <SelectValue placeholder="Seleziona una categoria" />
+          <SelectTrigger variant="ghost" className="p-0 h-auto text-sm font-normal">
+            <SelectValue placeholder="Seleziona" />
           </SelectTrigger>
           <SelectContent>
             {categories.map((cat) => (
@@ -64,42 +117,27 @@ const SearchBar = ({ onSearch, onReset }) => {
         </Select>
       </div>
 
-      {/* Città */}
-      <div className="flex-1">
-        <label className="block mb-1 text-sm font-medium">Città</label>
-        <Input
-          placeholder="Inserisci una città"
-          value={filters.city}
-          onChange={(e) =>
-            setFilters((f) => ({ ...f, city: e.target.value }))
-          }
-        />
-      </div>
+      {/* 🎯 Pulsanti azione */}
+      <div className="flex items-center gap-2 px-4 py-3">
+        {/* Cerca */}
+        <Button
+          size="icon"
+          className="rounded-full bg-red-500 hover:bg-red-600 text-white"
+          onClick={handleSearch}
+        >
+          <Search className="h-5 w-5" />
+        </Button>
 
-      {/* Data */}
-      <div className="flex-1">
-        <label className="block mb-1 text-sm font-medium">Data</label>
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="outline" className="w-full justify-start text-left">
-              {filters.date ? format(filters.date, "PPP") : "Seleziona una data"}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0">
-            <Calendar
-              mode="single"
-              selected={filters.date}
-              onSelect={(date) => setFilters((f) => ({ ...f, date }))}
-              initialFocus
-            />
-          </PopoverContent>
-        </Popover>
-      </div>
-
-      {/* Bottoni */}
-      <div className="flex gap-2">
-        <Button onClick={handleSearch}>🔍 Cerca</Button>
-        <Button variant="outline" onClick={handleReset}>♻️ Reset</Button>
+        {/* Reset (solo se filtri attivi) */}
+        {hasActiveFilters && (
+          <Button
+            variant="outline"
+            className="rounded-full px-3 py-1 text-sm border-gray-300 hover:bg-gray-100"
+            onClick={handleReset}
+          >
+            ♻️
+          </Button>
+        )}
       </div>
     </div>
   )

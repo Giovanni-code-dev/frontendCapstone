@@ -3,6 +3,9 @@ import { useTheme } from "@/contexts/ThemeContext"
 import { useUser } from "@/contexts/UserContext"
 import useLogout from "@/hooks/useLogout"
 
+import SearchBar from "@/components/SearchBar"
+import SearchMobileDialog from "@/components/search/SearchMobileDialog"
+
 import {
   Avatar,
   AvatarImage,
@@ -52,14 +55,18 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 w-full px-4 py-3 bg-card text-card-foreground shadow-md">
       {/* Layout principale: logo sinistra, azioni destra */}
       <div className="flex items-center justify-between w-full h-12 sm:h-auto">
-        
-        {/* Logo a sinistra */}
+        {/* Logo */}
         <Link to="/home" className="text-xl font-bold">
           Floating Dreams
         </Link>
 
-        {/* Avatar + Menu a destra */}
+        {/* Azioni: avatar + menu */}
         <div className="flex items-center gap-2">
+
+          {/* Pulsante ricerca mobile */}
+          <div className="block md:hidden">
+            <SearchMobileDialog />
+          </div>
 
           {/* Avatar utente */}
           {user && (
@@ -131,7 +138,7 @@ const Navbar = () => {
             </DropdownMenu>
           )}
 
-          {/* Menu hamburger solo per artist */}
+          {/* Menu artista */}
           {user?.role === "artist" && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -150,6 +157,11 @@ const Navbar = () => {
             </DropdownMenu>
           )}
         </div>
+      </div>
+
+      {/* Search desktop visibile solo da md in su */}
+      <div className="hidden md:flex w-full justify-center mt-4">
+        <SearchBar />
       </div>
     </header>
   )
