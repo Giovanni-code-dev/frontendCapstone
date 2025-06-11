@@ -163,9 +163,11 @@ const Navbar = () => {
       </div>
 
       {/* Search desktop visibile solo da md in su */}
-      <div className="hidden md:flex w-full justify-center mt-4">
-        <SearchBar />
-      </div>
+      {["/home",].includes(location.pathname) && (
+  <div className="hidden md:flex w-full justify-center mt-4">
+    <SearchBar />
+  </div>
+)}
     </header>
   )
 }

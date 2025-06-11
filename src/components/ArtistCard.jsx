@@ -27,9 +27,13 @@ const ArtistCard = ({ artist }) => {
           <div className="text-center space-y-1">
             <h3 className="text-lg font-semibold">{artist.name}</h3>
             {artist.categories?.length > 0 && (
-              <p className="text-sm text-muted-foreground">
-  {artist.categories.map((cat) => cat.name).join(", ")}
-</p>
+  <p className="text-sm text-muted-foreground">
+    {artist.categories.map((cat) =>
+      typeof cat === "object" && cat.name ? cat.name : String(cat)
+    ).join(", ")}
+  </p>
+
+
             )}
           </div>
           <div className="text-center">

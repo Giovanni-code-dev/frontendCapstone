@@ -29,17 +29,15 @@ import {
   
           {/* Categorie */}
           {artist.categories?.length > 0 && (
-            <div className="flex flex-wrap justify-center gap-2">
-              {artist.categories.map((cat) => (
-                <span
-                  key={cat}
-                  className="px-3 py-1 text-sm rounded-full bg-muted text-foreground border"
-                >
-                  {cat}
-                </span>
-              ))}
-            </div>
-          )}
+  <div className="flex flex-wrap justify-center gap-2 text-sm text-muted-foreground">
+    {artist.categories.map((cat) => (
+      <span className="bg-primary/10 text-primary px-2 py-1 rounded-full" key={typeof cat === "object" ? cat._id : cat}>
+        {typeof cat === "object" && cat.name ? cat.name : String(cat)}
+      </span>
+    ))}
+  </div>
+)}
+
   
           {/* Rating */}
           <div className="mt-2">
