@@ -31,6 +31,8 @@ import Project from "@/pages/dashboard/artist/Project"
 import Shows from "@/pages/dashboard/artist/Shows"
 import Settings from "@/pages/dashboard/artist/Settings"
 import Calendar from "@/pages/dashboard/artist/Calendar"
+import RequestsReceived from "@/pages/dashboard/artist/RequestsReceived"
+
 
 function App() {
   return (
@@ -77,6 +79,8 @@ function App() {
   <Route path="/dashboard/artist" element={<LayoutArtist />}>
     <Route index element={<DashboardArtist />} />
     <Route path="shows" element={<Shows />} />
+    <Route path="requests" element={<RequestsReceived />} />
+
     <Route path="packages" element={<Packages />} />
     <Route path="projects" element={<Project />} />
     <Route path="settings" element={<Settings />} />

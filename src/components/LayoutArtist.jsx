@@ -17,6 +17,7 @@ const LayoutArtist = () => {
           <nav className="space-y-2">
             <NavLink to="/dashboard/artist" end className={navStyle}>Dashboard</NavLink>
             <NavLink to="/dashboard/artist/shows" className={navStyle}>Spettacoli</NavLink>
+            <NavLink to="/dashboard/artist/requests" className={navStyle}>Richieste ricevute</NavLink> {/* Aggiunto */}
             <NavLink to="/dashboard/artist/packages" className={navStyle}>Pacchetti</NavLink>
             <NavLink to="/dashboard/artist/projects" className={navStyle}>Progetti</NavLink>
             <NavLink to="/dashboard/artist/calendar" className={navStyle}>Calendario</NavLink>
