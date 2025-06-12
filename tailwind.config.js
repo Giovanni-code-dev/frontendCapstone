@@ -22,7 +22,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ['"Cormorant Garamond"', "serif"],
+        sans: ['"Inter"', "sans-serif"],
         artist: 'var(--artist-font)', // 👈 aggiunta per tema artista
       },
       colors: {

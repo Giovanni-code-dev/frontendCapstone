@@ -46,7 +46,7 @@ export const ThemeProvider = ({ children }) => {
         console.log("🌐 Tema ricevuto dal profilo artista:", data.theme)
       }
     } catch (error) {
-      console.error("❌ Errore nel recupero del tema artista:", error)
+      console.error(" Errore nel recupero del tema artista:", error)
     }
   }
 

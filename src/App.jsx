@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom"
 import ProtectedRoute from "@/components/ProtectedRoute"
+import ShowDetail from "@/pages/shows/ShowDetail"
 
 // Layouts
 import Layout from "@/components/Layout" // Pubblico con Navbar/Footer
@@ -48,11 +49,12 @@ function App() {
       {/* =============================
           🌍 LAYOUT PUBBLICO CON NAVBAR/FOOTER
       ============================== */}
-      <Route element={<Layout />}>
-        <Route path="/home" element={<HomeCustomer />} />
-        <Route path="/artist/:id" element={<ArtistPublicPage />} />
-        {/* Qui puoi aggiungere anche About, Contact ecc. */}
-      </Route>
+<Route element={<Layout />}>
+  <Route path="/home" element={<HomeCustomer />} />
+  <Route path="/artist/:id" element={<ArtistPublicPage />} />
+  <Route path="/shows/:id" element={<ShowDetail />} />
+</Route>
+
 
       {/* =============================
           🔐 AREA PROTETTA - CUSTOMER

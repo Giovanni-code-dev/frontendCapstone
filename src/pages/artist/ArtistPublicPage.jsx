@@ -20,6 +20,8 @@ const ArtistPublicPage = () => {
 
   const [loading, setLoading] = useState(true)
 
+console.log(" Caricamento oggetto artist:", artist )
+
   useEffect(() => {
     const fetchAll = async () => {
       try {
@@ -56,6 +58,7 @@ const ArtistPublicPage = () => {
   }, [id])
 
   if (loading || !artist) {
+    
     return (
       <div className="flex justify-center mt-20">
         <Skeleton className="w-[300px] h-[400px]" />
@@ -67,6 +70,8 @@ const ArtistPublicPage = () => {
     <div className="p-4 space-y-10 max-w-6xl mx-auto">
       {/* PROFILO */}
       <ArtistProfileCard artist={artist} />
+
+      
 
       {/* CONTENUTO A TABS */}
       <ContentTabs

@@ -4,9 +4,8 @@ import { useUser } from "@/contexts/UserContext"
 import useLogout from "@/hooks/useLogout"
 
 import SearchBar from "@/components/SearchBar"
-import SearchMobileDialog from "@/components/search/SearchMobileDialog"
 import SearchMobilePopover from "@/components/search/SearchMobilePopover"
-
+import CustomerRequestsModal from "@/components/customer/CustomerRequestsModal"
 
 import {
   Avatar,
@@ -55,23 +54,16 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full px-4 py-3 bg-card text-card-foreground shadow-md">
-      {/* Layout principale: logo sinistra, azioni destra */}
       <div className="flex items-center justify-between w-full h-12 sm:h-auto">
-        {/* Logo */}
         <Link to="/home" className="text-xl font-bold">
-          BaralliEnterprise 
+          BaralliEnterprise
         </Link>
 
-        {/* Azioni: avatar + menu */}
         <div className="flex items-center gap-2">
-
-          {/* Pulsante ricerca mobile */}
           <div className="block md:hidden">
             <SearchMobilePopover />
-            
           </div>
 
-          {/* Avatar utente */}
           {user && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -87,10 +79,17 @@ const Navbar = () => {
                   Profilo
                 </DropdownMenuItem>
 
-                <DropdownMenuItem>
-                  <LayoutDashboard className="mr-2 h-4 w-4" />
-                  {user?.role === "artist" ? "Dashboard artista" : "Prenotazioni"}
-                </DropdownMenuItem>
+                {/* 👇 Sezione dinamica: artista vs customer */}
+                {user?.role === "artist" ? (
+                  <DropdownMenuItem asChild>
+                    <Link to="/dashboard/artist">
+                      <LayoutDashboard className="mr-2 h-4 w-4" />
+                      Dashboard artista
+                    </Link>
+                  </DropdownMenuItem>
+                ) : (
+                  <CustomerRequestsModal />
+                )}
 
                 <DropdownMenuItem onClick={toggleTheme}>
                   {theme === "dark" ? (
@@ -141,7 +140,6 @@ const Navbar = () => {
             </DropdownMenu>
           )}
 
-          {/* Menu artista */}
           {user?.role === "artist" && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -163,11 +161,11 @@ const Navbar = () => {
       </div>
 
       {/* Search desktop visibile solo da md in su */}
-      {["/home",].includes(location.pathname) && (
-  <div className="hidden md:flex w-full justify-center mt-4">
-    <SearchBar />
-  </div>
-)}
+      {["/home"].includes(location.pathname) && (
+        <div className="hidden md:flex w-full justify-center mt-4">
+          <SearchBar />
+        </div>
+      )}
     </header>
   )
 }
