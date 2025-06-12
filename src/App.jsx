@@ -3,9 +3,8 @@ import ProtectedRoute from "@/components/ProtectedRoute"
 import ShowDetail from "@/pages/shows/ShowDetail"
 
 // Layouts
-import Layout from "@/components/Layout" // Pubblico con Navbar/Footer
-import LayoutArtist from "@/components/LayoutArtist" // Sidebar artista
-// import LayoutCustomer from "@/components/LayoutCustomer" // (Opzionale, se vuoi separarlo)
+import Layout from "@/components/Layout"
+import LayoutArtist from "@/components/LayoutArtist"
 
 // Pagine login & registrazione (senza layout)
 import LoginSelector from "@/pages/login/LoginSelector"
@@ -32,7 +31,7 @@ import Shows from "@/pages/dashboard/artist/Shows"
 import Settings from "@/pages/dashboard/artist/Settings"
 import Calendar from "@/pages/dashboard/artist/Calendar"
 import RequestsReceived from "@/pages/dashboard/artist/RequestsReceived"
-
+import EditProfile from "@/pages/dashboard/artist/EditProfile" // nuovo import
 
 function App() {
   return (
@@ -51,12 +50,11 @@ function App() {
       {/* =============================
           LAYOUT PUBBLICO CON NAVBAR/FOOTER
       ============================== */}
-<Route element={<Layout />}>
-  <Route path="/home" element={<HomeCustomer />} />
-  <Route path="/artist/:id" element={<ArtistPublicPage />} />
-  <Route path="/shows/:id" element={<ShowDetail />} />
-</Route>
-
+      <Route element={<Layout />}>
+        <Route path="/home" element={<HomeCustomer />} />
+        <Route path="/artist/:id" element={<ArtistPublicPage />} />
+        <Route path="/shows/:id" element={<ShowDetail />} />
+      </Route>
 
       {/* =============================
           AREA PROTETTA - CUSTOMER
@@ -65,29 +63,23 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/dashboard/customer" element={<DashboardCustomer />} />
         </Route>
-        {/* Oppure, se crei un LayoutCustomer:
-        <Route element={<LayoutCustomer />}>
-          <Route path="/dashboard/customer" element={<DashboardCustomer />} />
-        </Route>
-        */}
       </Route>
 
       {/* =============================
           AREA PROTETTA - ARTIST
       ============================== */}
-<Route element={<ProtectedRoute />}>
-  <Route path="/dashboard/artist" element={<LayoutArtist />}>
-    <Route index element={<DashboardArtist />} />
-    <Route path="shows" element={<Shows />} />
-    <Route path="requests" element={<RequestsReceived />} />
-
-    <Route path="packages" element={<Packages />} />
-    <Route path="projects" element={<Project />} />
-    <Route path="settings" element={<Settings />} />
-    <Route path="calendar" element={<Calendar />} />
-  </Route>
-</Route>
-
+      <Route element={<ProtectedRoute />}>
+        <Route path="/dashboard/artist" element={<LayoutArtist />}>
+          <Route index element={<DashboardArtist />} />
+          <Route path="shows" element={<Shows />} />
+          <Route path="requests" element={<RequestsReceived />} />
+          <Route path="packages" element={<Packages />} />
+          <Route path="projects" element={<Project />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="calendar" element={<Calendar />} />
+          <Route path="edit-profile" element={<EditProfile />} /> {/* nuova rotta */}
+        </Route>
+      </Route>
     </Routes>
   )
 }

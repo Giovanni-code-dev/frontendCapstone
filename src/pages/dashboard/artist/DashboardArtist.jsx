@@ -39,9 +39,31 @@ const DashboardArtist = () => {
 
       <Card className="max-w-xl mx-auto shadow-lg border-muted">
         <CardContent className="p-6 space-y-4">
-          <h2 className="text-xl font-semibold text-foreground">
-            Ciao {user?.name || "Artista"}! 
-          </h2>
+          <div className="flex items-center gap-4">
+            <Link to="/dashboard/artist/edit-profile" className="shrink-0 group">
+              {user?.avatar ? (
+                <img
+                  src={user.avatar}
+                  alt="Avatar artista"
+                  className="w-16 h-16 rounded-full object-cover border border-muted transition duration-200 group-hover:ring-2 group-hover:ring-primary"
+                />
+              ) : (
+                <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center text-xl font-bold text-primary transition duration-200 group-hover:ring-2 group-hover:ring-primary">
+                  {user?.name?.[0] || "A"}
+                </div>
+              )}
+            </Link>
+
+            <div>
+              <h2 className="text-xl font-semibold text-foreground">
+                Ciao {user?.name || "Artista"}!
+              </h2>
+              <p className="text-muted-foreground text-sm">
+                Benvenuto nella tua dashboard personale.
+              </p>
+            </div>
+          </div>
+
           <p className="text-muted-foreground">
             Gestisci i tuoi spettacoli e le richieste ricevute. Usa la barra laterale o clicca sulle
             card qui sotto per accedere alle sezioni.
@@ -53,7 +75,7 @@ const DashboardArtist = () => {
         <Link to="/dashboard/artist/shows">
           <Card className="hover:shadow-xl transition-shadow cursor-pointer">
             <CardContent className="p-6">
-              <h3 className="text-lg font-semibold text-primary"> Spettacoli</h3>
+              <h3 className="text-lg font-semibold text-primary">Spettacoli</h3>
               <p className="text-2xl font-bold mt-2">{showCount}</p>
             </CardContent>
           </Card>
@@ -62,7 +84,7 @@ const DashboardArtist = () => {
         <Link to="/dashboard/artist/requests">
           <Card className="hover:shadow-xl transition-shadow cursor-pointer">
             <CardContent className="p-6">
-              <h3 className="text-lg font-semibold text-primary"> Richieste ricevute</h3>
+              <h3 className="text-lg font-semibold text-primary">Richieste ricevute</h3>
               <p className="text-2xl font-bold mt-2">{requestCount}</p>
             </CardContent>
           </Card>
