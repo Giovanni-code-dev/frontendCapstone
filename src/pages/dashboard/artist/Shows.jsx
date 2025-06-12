@@ -159,7 +159,7 @@ const Shows = () => {
       if (!res.ok) throw new Error("Errore nel salvataggio della copertina")
 
       const data = await res.json()
-      alert("✅ Copertina aggiornata con successo!")
+      alert(" Copertina aggiornata con successo!")
       setExistingImages(data.images)
     } catch (err) {
       console.error(err)
@@ -194,7 +194,7 @@ const Shows = () => {
   return (
     <div className="space-y-8">
       <h1 className="text-2xl font-bold">
-        🎭 {editMode ? "Modifica spettacolo" : "Aggiungi spettacolo"}
+         {editMode ? "Modifica spettacolo" : "Aggiungi spettacolo"}
       </h1>
 
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -273,7 +273,7 @@ const Shows = () => {
                       className="absolute bottom-1 left-1 bg-white/80 text-xs px-2 py-0.5 rounded shadow"
                       onClick={() => handleSetCover(img.public_id)}
                     >
-                      {img.isCover ? "Copertina ✅" : "Imposta"}
+                      {img.isCover ? "Copertina " : "Imposta"}
                     </Button>
 
                     <Button
@@ -283,7 +283,7 @@ const Shows = () => {
                       className="absolute top-1 right-1 opacity-80 group-hover:opacity-100"
                       onClick={() => handleDeleteImage(img.public_id)}
                     >
-                      🗑
+                      elimina🗑
                     </Button>
                   </div>
                 ))}
@@ -295,14 +295,14 @@ const Shows = () => {
                 className="mt-2"
                 onClick={saveCoverChange}
               >
-                💾 Salva copertina
+                 Salva copertina
               </Button>
             </div>
           )}
         </div>
 
         <Button type="submit" className="md:col-span-3 w-full">
-          {editMode ? "💾 Salva modifiche" : "➕ Aggiungi spettacolo"}
+          {editMode ? "Salva modifiche" : "Aggiungi spettacolo"}
         </Button>
       </form>
 
@@ -327,7 +327,7 @@ const Shows = () => {
                     <h2 className="text-lg font-semibold">{show.title}</h2>
                     <p className="text-sm text-muted-foreground line-clamp-2">{show.description}</p>
                     <p className="text-sm">
-                      🎭 {show.category} — ⏱ {show.durationMinutes} min
+                       {show.category} —  {show.durationMinutes} min
                     </p>
                   </div>
 

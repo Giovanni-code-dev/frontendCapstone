@@ -5,31 +5,31 @@ const LayoutArtist = () => {
     <div className="flex min-h-screen">
       {/* Sidebar */}
       <aside className="w-64 bg-gray-900 text-white p-4 space-y-6">
-        <h2 className="text-2xl font-bold">🎭 Area Artista</h2>
+        <h2 className="text-2xl font-bold">Area Artista</h2>
         <nav className="space-y-2">
           <NavLink
             to="/dashboard/artist/shows"
             className={({ isActive }) => isActive ? "font-bold underline" : ""}
           >
-            🎭 Spettacoli
+             Spettacoli
           </NavLink>
           <NavLink
             to="/dashboard/artist/packages"
             className={({ isActive }) => isActive ? "font-bold underline" : ""}
           >
-            🎁 Pacchetti
+             Pacchetti
           </NavLink>
           <NavLink
             to="/dashboard/artist/projects"
             className={({ isActive }) => isActive ? "font-bold underline" : ""}
           >
-            📦 Progetti
+             Progetti
           </NavLink>
           <NavLink
             to="/dashboard/artist/settings"
             className={({ isActive }) => isActive ? "font-bold underline" : ""}
           >
-            🎨 Tema
+             Tema
           </NavLink>
         </nav>
       </aside>

@@ -22,7 +22,7 @@ const useLoginArtist = () => {
       navigate("/home")
     } catch (err) {
       setError(err.message)
-      throw err  // 🔁 Propaghiamo l'errore se serve
+      throw err  // Propaghiamo l'errore se serve
     }
   }
 

@@ -13,14 +13,14 @@ const RedirectGoogle = () => {
     const token = urlParams.get("token")
     const error = urlParams.get("error")
 
-    // ❌ Login fallito (utente non trovato o rimosso)
+    //  Login fallito (utente non trovato o rimosso)
     if (error === "unauthorized") {
       alert("⚠️ Login fallito: utente non autorizzato o inesistente.")
       navigate("/")
       return
     }
 
-    // ✅ Login riuscito
+    // Login riuscito
     if (token) {
       try {
         const payload = jwtDecode(token)
@@ -61,7 +61,7 @@ const RedirectGoogle = () => {
         <CardContent className="p-6 text-center space-y-4">
           <h1 className="text-xl font-semibold">Accesso in corso...</h1>
           <p className="text-muted-foreground">
-            Stiamo aprendo le tende del tuo palcoscenico personale... 🎭✨
+            Stiamo aprendo le tende del tuo palcoscenico personale... 
           </p>
         </CardContent>
       </Card>

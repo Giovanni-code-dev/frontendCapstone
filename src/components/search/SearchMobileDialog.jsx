@@ -19,9 +19,9 @@ import {
 } from "@/components/ui/select"
 import { format } from "date-fns"
 import { Search } from "lucide-react"
-import ComboboxCity from "@/components/search/ComboboxCity" // ✅ Nuovo componente
+import ComboboxCity from "@/components/search/ComboboxCity" // Nuovo componente
 
-// 🎭 Opzioni di categoria
+// Opzioni di categoria
 const categories = [
   "mimo",
   "clown",
@@ -40,22 +40,22 @@ const SearchMobileDialog = () => {
   const [open, setOpen] = useState(false)
   const [step, setStep] = useState(0)
 
-  // ✅ Filtri globali per la ricerca
+  // Filtri globali per la ricerca
   const [filters, setFilters] = useState({
     city: "",
     date: null,
     category: "",
   })
 
-  // ✅ Stato separato per città selezionata nel combobox
+  // tato separato per città selezionata nel combobox
   const [selectedCity, setSelectedCity] = useState("")
 
-  // 🔁 Sincronizza selectedCity con filters.city
+  // Sincronizza selectedCity con filters.city
   useEffect(() => {
     setFilters((prev) => ({ ...prev, city: selectedCity }))
   }, [selectedCity])
 
-  // 🔁 Reset filtri ogni volta che si apre il modale
+  // Reset filtri ogni volta che si apre il modale
   useEffect(() => {
     if (open) {
       setFilters({ city: "", date: null, category: "" })
@@ -67,7 +67,7 @@ const SearchMobileDialog = () => {
   const next = () => setStep((prev) => prev + 1)
   const back = () => setStep((prev) => prev - 1)
 
-  // ✅ Reset completo filtri e città
+  // Reset completo filtri e città
   const reset = () => {
     setFilters({ city: "", date: null, category: "" })
     setSelectedCity("")
@@ -76,7 +76,7 @@ const SearchMobileDialog = () => {
     setOpen(false)
   }
 
-  // ✅ Costruisce i parametri della ricerca e reindirizza
+  // Costruisce i parametri della ricerca e reindirizza
   const submit = () => {
     const params = new URLSearchParams()
     if (filters.city) params.set("city", filters.city)
@@ -87,10 +87,10 @@ const SearchMobileDialog = () => {
     setOpen(false)
   }
 
-  // 📦 Step dinamici della modale
+  // Step dinamici della modale
   const steps = [
     {
-      title: "📍 Luogo dell’evento",
+      title: "Luogo dell’evento",
       content: (
         <ComboboxCity
           selectedCity={selectedCity}
@@ -99,7 +99,7 @@ const SearchMobileDialog = () => {
       ),
     },
     {
-      title: "📅 Quando si terrà?",
+      title: "Quando si terrà?",
       content: (
         <Calendar
           mode="single"
@@ -109,7 +109,7 @@ const SearchMobileDialog = () => {
       ),
     },
     {
-      title: "🎭 Tipo di artista",
+      title: "Tipo di artista",
       content: (
         <Select
           value={filters.category}
@@ -153,7 +153,7 @@ const SearchMobileDialog = () => {
             </DialogDescription>
           </DialogHeader>
 
-          {/* 🔁 Contenuto step corrente */}
+          {/*  Contenuto step corrente */}
           <div className="py-4">{steps[step].content}</div>
 
           <DialogFooter className="flex justify-between gap-2">
@@ -167,7 +167,7 @@ const SearchMobileDialog = () => {
             )}
             {step === steps.length - 1 && (
               <Button onClick={submit} className="bg-red-500 hover:bg-red-600">
-                ✅ Cerca artisti
+                Cerca artisti
               </Button>
             )}
             <Button variant="ghost" onClick={reset}>

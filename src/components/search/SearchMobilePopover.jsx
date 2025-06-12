@@ -22,7 +22,7 @@ const SearchMobilePopover = () => {
   const location = useLocation()
   const navigate = useNavigate()
 
-  // 📦 Fetch categorie disponibili dal backend
+  // Fetch categorie disponibili dal backend
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -30,15 +30,15 @@ const SearchMobilePopover = () => {
         const data = await res.json()
         if (!Array.isArray(data)) throw new Error("Dati categoria non validi")
         setCategories(data)
-        console.log("✅ Categorie caricate:", data)
+        console.log(" Categorie caricate:", data)
       } catch (err) {
-        console.error("❌ Errore nel recupero categorie:", err)
+        console.error(" Errore nel recupero categorie:", err)
       }
     }
     fetchCategories()
   }, [])
 
-  // 🧼 Reset se non ci sono query nell'URL
+  // Reset se non ci sono query nell'URL
   useEffect(() => {
     const query = new URLSearchParams(location.search)
     if (query.toString().length === 0) {
@@ -88,7 +88,7 @@ const SearchMobilePopover = () => {
 >
         {step === 0 && (
           <>
-            <h4 className="text-sm font-medium">1. 🏙️ Città</h4>
+            <h4 className="text-sm font-medium">1. Città</h4>
             <ComboboxCity value={city} onChange={setCity} />
             <div className="flex justify-end">
               <Button onClick={next}>Avanti</Button>
@@ -98,7 +98,7 @@ const SearchMobilePopover = () => {
 
         {step === 1 && (
           <>
-            <h4 className="text-sm font-medium">2. 📅 Data</h4>
+            <h4 className="text-sm font-medium">2.  Data</h4>
             <Calendar
               mode="single"
               selected={date}
@@ -115,7 +115,7 @@ const SearchMobilePopover = () => {
 
         {step === 2 && (
           <>
-            <h4 className="text-sm font-medium">3. 🎭 Categoria</h4>
+            <h4 className="text-sm font-medium">3.  Categoria</h4>
             <div className="flex flex-wrap gap-2">
               <Button
                 key="all"

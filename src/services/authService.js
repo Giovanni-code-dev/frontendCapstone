@@ -34,7 +34,7 @@ export const loginCustomer = async (email, password) => {
   return await res.json()
 }
 
-// ✅ Aggiunta funzione per la registrazione
+// Aggiunta funzione per la registrazione
 export const registerUser = async (role, data) => {
   const res = await fetch(`${BASE_URL}/${role}/register`, {
     method: "POST",

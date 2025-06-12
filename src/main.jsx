@@ -18,7 +18,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <ThemeProvider>
           <>
             <App />
-            <Toaster /> {/* 📣 Componente necessario per mostrare i toast */}
+            <Toaster /> {/* Componente necessario per mostrare i toast */}
           </>
         </ThemeProvider>
       </UserProvider>

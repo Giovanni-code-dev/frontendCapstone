@@ -44,8 +44,8 @@ const ShowDetail = () => {
         body: JSON.stringify({
           artist: show.artist,
           shows: [show._id],
-          name: user.name,     // ✅ Preso da UserContext
-          email: user.email,   // ✅ Preso da UserContext
+          name: user.name,     //  Preso da UserContext
+          email: user.email,   // Preso da UserContext
           date,
           message,
         }),
@@ -61,7 +61,7 @@ const ShowDetail = () => {
       dialogRef.current?.click()
     } catch (err) {
       console.error(err)
-      alert("❌ Errore durante l'invio della richiesta.")
+      alert(" Errore durante l'invio della richiesta.")
     }
   }
 
@@ -124,7 +124,7 @@ const ShowDetail = () => {
       <div className="text-center mt-6">
         <Dialog>
           <DialogTrigger asChild>
-            <Button ref={dialogRef}>📩 Contatta l’artista</Button>
+            <Button ref={dialogRef}> Contatta l’artista</Button>
           </DialogTrigger>
           <DialogContent className="max-w-md">
             <DialogHeader>

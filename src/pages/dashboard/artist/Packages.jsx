@@ -152,7 +152,7 @@ const Packages = () => {
   return (
     <div className="space-y-8">
       <h1 className="text-2xl font-bold">
-        🎁 {editMode ? "Modifica pacchetto" : "Aggiungi pacchetto"}
+         {editMode ? "Modifica pacchetto" : "Aggiungi pacchetto"}
       </h1>
 
       {/* Form */}
@@ -221,7 +221,7 @@ const Packages = () => {
         </div>
 
         <Button type="submit" className="md:col-span-3 w-full">
-          {editMode ? "💾 Salva modifiche" : "➕ Aggiungi pacchetto"}
+          {editMode ? "Salva modifiche" : " Aggiungi pacchetto"}
         </Button>
       </form>
 

@@ -79,7 +79,7 @@ const Navbar = () => {
                   Profilo
                 </DropdownMenuItem>
 
-                {/* 👇 Sezione dinamica: artista vs customer */}
+                {/* Sezione dinamica: artista vs customer */}
                 {user?.role === "artist" ? (
                   <DropdownMenuItem asChild>
                     <Link to="/dashboard/artist">
@@ -111,7 +111,7 @@ const Navbar = () => {
                 </DropdownMenuItem>
 
                 <DropdownMenuItem disabled>
-                  🌟 Wishlist (coming soon)
+                  Wishlist (coming soon)
                 </DropdownMenuItem>
 
                 <DropdownMenuSeparator />
@@ -148,12 +148,12 @@ const Navbar = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem asChild><Link to="/dashboard/artist">🎭 Dashboard</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link to="/dashboard/artist/shows">🎭 Spettacoli</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link to="/dashboard/artist/packages">🎁 Pacchetti</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link to="/dashboard/artist/projects">📦 Progetti</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link to="/dashboard/artist/calendar">📅 Calendario</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link to="/dashboard/artist/settings">🎨 Tema</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link to="/dashboard/artist">Dashboard</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link to="/dashboard/artist/shows">Spettacoli</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link to="/dashboard/artist/packages">Pacchetti</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link to="/dashboard/artist/projects">Progetti</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link to="/dashboard/artist/calendar">Calendario</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link to="/dashboard/artist/settings">Tema</Link></DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           )}

@@ -8,12 +8,12 @@ const Layout = () => {
 
 
       
-      {/* ✅ Navbar sticky */}
+      {/* Navbar sticky */}
       <div className="sticky top-0 z-50">
         <Navbar />
       </div>
 
-      {/* ✅ Contenuto con padding per non essere nascosto dalla navbar */}
+      {/* Contenuto con padding per non essere nascosto dalla navbar */}
       <main className="flex-grow p-4 mt-4">
         <Outlet />
       </main>

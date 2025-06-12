@@ -51,7 +51,7 @@ const CustomerRequestsModal = () => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="ghost" className="w-full justify-start">
-          📩 Prenotazioni
+          Prenotazioni
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-xl max-h-[80vh] overflow-y-auto">
@@ -86,8 +86,8 @@ const CustomerRequestsModal = () => {
                     {req.status}
                   </Badge>
                 </div>
-                <p>🎭 {req.shows?.map((s) => s.title).join(", ")}</p>
-                <p>📅 {format(new Date(req.date), "dd/MM/yyyy")}</p>
+                <p> {req.shows?.map((s) => s.title).join(", ")}</p>
+                <p>{format(new Date(req.date), "dd/MM/yyyy")}</p>
                 {req.message && <p>📝 {req.message}</p>}
               </div>
             ))}

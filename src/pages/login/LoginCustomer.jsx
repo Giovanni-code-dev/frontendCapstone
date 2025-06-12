@@ -14,7 +14,7 @@ const LoginCustomer = () => {
   const { user } = useUser()
   const navigate = useNavigate()
 
-  // ✅ Redirect automatico se già loggato come customer
+  //  Redirect automatico se già loggato come customer
   useEffect(() => {
     if (user?.role === "customer") {
       navigate("/dashboard/customer")

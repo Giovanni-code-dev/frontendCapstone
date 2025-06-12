@@ -43,7 +43,7 @@ export const ThemeProvider = ({ children }) => {
       const data = await res.json()
       if (data?.theme) {
         setArtistTheme(data.theme)
-        console.log("🌐 Tema ricevuto dal profilo artista:", data.theme)
+        console.log("Tema ricevuto dal profilo artista:", data.theme)
       }
     } catch (error) {
       console.error(" Errore nel recupero del tema artista:", error)

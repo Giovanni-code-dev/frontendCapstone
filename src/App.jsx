@@ -36,7 +36,7 @@ function App() {
   return (
     <Routes>
       {/* =============================
-          🌐 PAGINE SENZA LAYOUT
+          PAGINE SENZA LAYOUT
       ============================== */}
       <Route path="/" element={<LoginSelector />} />
       <Route path="/login/customer" element={<LoginCustomer />} />
@@ -47,7 +47,7 @@ function App() {
       <Route path="/register/artist" element={<RegisterArtist />} />
 
       {/* =============================
-          🌍 LAYOUT PUBBLICO CON NAVBAR/FOOTER
+          LAYOUT PUBBLICO CON NAVBAR/FOOTER
       ============================== */}
 <Route element={<Layout />}>
   <Route path="/home" element={<HomeCustomer />} />
@@ -57,7 +57,7 @@ function App() {
 
 
       {/* =============================
-          🔐 AREA PROTETTA - CUSTOMER
+          AREA PROTETTA - CUSTOMER
       ============================== */}
       <Route element={<ProtectedRoute />}>
         <Route element={<Layout />}>
@@ -71,7 +71,7 @@ function App() {
       </Route>
 
       {/* =============================
-          🔐 AREA PROTETTA - ARTIST
+          AREA PROTETTA - ARTIST
       ============================== */}
 <Route element={<ProtectedRoute />}>
   <Route path="/dashboard/artist" element={<LayoutArtist />}>

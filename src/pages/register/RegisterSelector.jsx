@@ -23,7 +23,7 @@ const RegisterSelector = () => {
     <div className="min-h-screen flex items-center justify-center bg-background text-foreground px-4">
       <Card className="w-full max-w-md shadow-lg">
         <CardContent className="p-6 space-y-6 text-center">
-          <h1 className="text-2xl font-bold">Registrati su Floating Dreams 🌟</h1>
+          <h1 className="text-2xl font-bold">Registrati </h1>
           <p className="text-muted-foreground">Scegli se vuoi registrarti come artista o come cliente</p>
 
           <div className="space-y-3">

@@ -30,7 +30,7 @@ const ImageUploader = ({ files, setFiles }) => {
     <div className="space-y-2">
       <Label>Immagini</Label>
       <Button type="button" variant="outline" onClick={() => fileInputRef.current?.click()}>
-        📤 Aggiungi immagini
+        Aggiungi immagini
       </Button>
 
       <input

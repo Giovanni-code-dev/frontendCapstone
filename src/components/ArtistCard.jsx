@@ -38,7 +38,7 @@ const ArtistCard = ({ artist }) => {
           </div>
           <div className="text-center">
             <Button asChild className="mt-2">
-              <Link to={`/artist/${artist._id}`}>🌟 Scopri di più</Link>
+              <Link to={`/artist/${artist._id}`}> Scopri di più</Link>
             </Button>
           </div>
         </CardContent>

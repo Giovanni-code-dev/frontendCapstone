@@ -23,7 +23,7 @@ const useLoginCustomer = () => {
       navigate("/home")
     } catch (err) {
       setError(err.message)
-      throw err // ✅ aggiunto
+      throw err // aggiunto
     }
   }
 

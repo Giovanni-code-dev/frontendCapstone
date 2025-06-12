@@ -14,7 +14,7 @@ const LoginArtist = () => {
   const { user } = useUser()
   const navigate = useNavigate()
 
-  // ✅ Redirect automatico se già loggato come artista
+  // Redirect automatico se già loggato come artista
   useEffect(() => {
     if (user?.role === "artist") {
       navigate("/dashboard/artist")

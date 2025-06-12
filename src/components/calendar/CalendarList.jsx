@@ -36,7 +36,7 @@ const CalendarList = ({ refreshKey }) => {
 
   useEffect(() => {
     fetchCalendar()
-  }, [refreshKey]) // 🔄 si aggiorna ogni volta che cambia il refreshKey
+  }, [refreshKey]) // si aggiorna ogni volta che cambia il refreshKey
 
   const handleDelete = async (id) => {
     const confirm = window.confirm("Vuoi davvero rimuovere questa voce?")

@@ -50,7 +50,7 @@ const CalendarForm = ({ onSuccess }) => {
       setDate("")
       setStatus("unavailable")
 
-      // 🔄 Notifica il genitore per aggiornare la lista
+      // Notifica il genitore per aggiornare la lista
       if (onSuccess) onSuccess()
     } catch (error) {
       toast({ variant: "destructive", title: "Errore", description: error.message })

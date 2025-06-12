@@ -63,7 +63,7 @@ const DashboardArtist = () => {
 
   return (
     <div className="min-h-screen p-6 space-y-6">
-      <h1 className="text-2xl font-bold text-center">📩 Richieste Ricevute</h1>
+      <h1 className="text-2xl font-bold text-center"> Richieste Ricevute</h1>
 
       {loading ? (
         <Skeleton className="h-32 w-full" />
@@ -93,20 +93,20 @@ const DashboardArtist = () => {
                 </Badge>
               </div>
 
-              <p>🎭 Spettacoli: {req.shows.map((s) => s.title).join(", ")}</p>
-              <p>📅 Data: {format(new Date(req.date), "dd/MM/yyyy")}</p>
-              {req.message && <p>📝 Messaggio: {req.message}</p>}
+              <p>Spettacoli: {req.shows.map((s) => s.title).join(", ")}</p>
+              <p> Data: {format(new Date(req.date), "dd/MM/yyyy")}</p>
+              {req.message && <p> Messaggio: {req.message}</p>}
 
               {req.status === "pending" && (
                 <div className="flex gap-2 pt-2">
                   <Button onClick={() => handleStatusChange(req._id, "accepted")}>
-                    ✅ Accetta
+                    Accetta
                   </Button>
                   <Button
                     variant="destructive"
                     onClick={() => handleStatusChange(req._id, "declined")}
                   >
-                    ❌ Rifiuta
+                     Rifiuta
                   </Button>
                 </div>
               )}

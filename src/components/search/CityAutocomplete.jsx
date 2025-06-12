@@ -18,7 +18,7 @@ const CityAutocomplete = ({ selectedCity, setSelectedCity }) => {
         const data = await res.json()
         setSuggestions(data)
       } catch (error) {
-        console.error("❌ Errore fetch città:", error)
+        console.error(" Errore fetch città:", error)
         setSuggestions([])
       }
     }

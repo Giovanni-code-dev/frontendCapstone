@@ -65,7 +65,7 @@ const Project = () => {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-2xl font-bold">📦 I tuoi Progetti</h1>
+      <h1 className="text-2xl font-bold"> I tuoi Progetti</h1>
 
       {/* Form di aggiunta */}
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -98,7 +98,7 @@ const Project = () => {
           />
         </div>
         <Button type="submit" className="md:col-span-3 w-full">
-          ➕ Aggiungi progetto
+          Aggiungi progetto
         </Button>
       </form>
 

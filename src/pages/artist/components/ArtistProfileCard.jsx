@@ -43,7 +43,7 @@ import {
           <div className="mt-2">
             {artist.averageRating ? (
               <p className="text-yellow-600 font-medium">
-                ⭐ {artist.averageRating} su {artist.reviewCount} recensioni
+               {artist.averageRating} su {artist.reviewCount} recensioni
               </p>
             ) : (
               <p className="text-muted-foreground italic">Nessuna recensione</p>

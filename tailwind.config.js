@@ -23,7 +23,7 @@ export default {
       },
       fontFamily: {
         sans: ['"Inter"', "sans-serif"],
-        artist: 'var(--artist-font)', // 👈 aggiunta per tema artista
+        artist: 'var(--artist-font)', // aggiunta per tema artista
       },
       colors: {
         background: "hsl(var(--background))",
@@ -60,7 +60,7 @@ export default {
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
 
-        // 🎨 Colori dinamici del tema artista
+        // Colori dinamici del tema artista
         artist: "var(--artist-primary)",
         "artist-bg": "var(--artist-bg)",
       },

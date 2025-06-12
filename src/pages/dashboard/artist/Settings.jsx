@@ -119,7 +119,7 @@ const Settings = () => {
     <div className="max-w-2xl mx-auto mt-8 space-y-6 p-6">
       <h1 className="text-2xl font-bold mb-4">Personalizza il tuo stile</h1>
 
-      {/* 🎨 Anteprima in tempo reale */}
+      {/* Anteprima in tempo reale */}
       <div
         className="rounded-xl p-6 shadow text-center"
         style={{
@@ -134,7 +134,7 @@ const Settings = () => {
       >
         <p className="text-lg font-semibold mb-2">Anteprima</p>
         <p style={{ color: form.accentColor }}>
-          Questo è un esempio di stile personalizzato 🎨
+          Questo è un esempio di stile personalizzato
         </p>
       </div>
 
@@ -259,7 +259,7 @@ const Settings = () => {
         {/* Pulsanti */}
         <div className="flex justify-between gap-4">
           <Button type="submit" className="flex-1">
-            💾 Salva
+             Salva
           </Button>
           <Button type="button" variant="outline" onClick={handleResetDefaults} className="flex-1">
             ♻️ Ripristina

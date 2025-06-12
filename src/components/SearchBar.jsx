@@ -40,10 +40,10 @@ const SearchBar = () => {
         const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/categories`)
         if (!res.ok) throw new Error("Errore nel caricamento categorie")
         const data = await res.json()
-        console.log("✅ Categorie caricate dal backend:", data)
+        console.log("Categorie caricate dal backend:", data)
         setCategories(data)
       } catch (error) {
-        console.error("❌ Errore nel fetch delle categorie:", error)
+        console.error(" Errore nel fetch delle categorie:", error)
       }
     }
 
@@ -81,7 +81,7 @@ const SearchBar = () => {
 
   return (
     <div className="flex w-full max-w-5xl items-center rounded-full border shadow-md bg-white overflow-hidden divide-x divide-border px-2">
-      {/* 📍 Città */}
+      {/* Città */}
       <div className="px-4 py-3 flex-1 min-w-[140px]">
         <div className="text-xs font-semibold text-muted-foreground">Dove</div>
         <ComboboxCity
@@ -92,7 +92,7 @@ const SearchBar = () => {
         />
       </div>
 
-      {/* 📅 Data evento */}
+      {/* Data evento */}
       <div className="px-4 py-3 flex-1 min-w-[140px]">
         <div className="text-xs font-semibold text-muted-foreground">Quando</div>
         <Popover>
@@ -119,7 +119,7 @@ const SearchBar = () => {
         </Popover>
       </div>
 
-      {/* 🎭 Categoria dinamica */}
+      {/*  Categoria dinamica */}
       <div className="px-4 py-3 flex-1 min-w-[140px]">
         <div className="text-xs font-semibold text-muted-foreground">Categoria</div>
         <Select
@@ -154,7 +154,7 @@ const SearchBar = () => {
         </Select>
       </div>
 
-      {/* 🔘 Pulsanti azione */}
+      {/*  Pulsanti azione */}
       <div className="flex items-center gap-2 px-4 py-3">
         <Button
           size="icon"

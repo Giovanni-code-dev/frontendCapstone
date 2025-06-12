@@ -19,9 +19,9 @@ export const UserProvider = ({ children }) => {
         },
       })
         .then((res) => {
-          console.log("✅ Risposta dal backend:", res.status)
+          console.log("Risposta dal backend:", res.status)
           if (!res.ok) {
-            console.warn("❌ Utente non valido o eliminato. Logout forzato.")
+            console.warn(" Utente non valido o eliminato. Logout forzato.")
             logout()
           } else {
             setUser(parsedUser)

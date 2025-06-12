@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom"
 import ArtistCard from "@/components/ArtistCard"
 import { format } from "date-fns"
 
-// 🔀 Funzione per mescolare casualmente un array
+// Funzione per mescolare casualmente un array
 const shuffleArray = (array) =>
   array
     .map(value => ({ value, sort: Math.random() }))
@@ -27,17 +27,17 @@ const HomeCustomer = () => {
       if (date) params.set("date", date)
 
       const url = `${import.meta.env.VITE_BACKEND_URL}/artist/public?${params.toString()}`
-      console.log("🔍 URL richiesta:", url)
+      console.log(" URL richiesta:", url)
 
       try {
         const res = await fetch(url)
         if (!res.ok) throw new Error(`Errore HTTP ${res.status}`)
         const data = await res.json()
-        console.log("🎨 Artisti ricevuti:", data)
+        console.log(" Artisti ricevuti:", data)
         const shuffled = shuffleArray(data)
         setFilteredArtists(shuffled)
       } catch (error) {
-        console.error("❌ Errore nella fetch artisti:", error)
+        console.error(" Errore nella fetch artisti:", error)
       }
     }
 

@@ -51,7 +51,7 @@ const EditPackageModal = ({ pkg, availableShows, onUpdate }) => {
 
       if (!resText.ok) throw new Error("Errore aggiornamento dati")
 
-      // 🖼️ 2. Se ci sono nuove immagini, invia separatamente
+      // 2. Se ci sono nuove immagini, invia separatamente
       if (newImages.length > 0) {
         const imgForm = new FormData()
         newImages.forEach(file => imgForm.append("images", file))
@@ -68,9 +68,9 @@ const EditPackageModal = ({ pkg, availableShows, onUpdate }) => {
       }
 
       setOpen(false)
-      onUpdate() // ↩️ Ricarica lista pacchetti nel parent
+      onUpdate() // Ricarica lista pacchetti nel parent
     } catch (err) {
-      console.error("❌ Errore nella modifica:", err)
+      console.error("Errore nella modifica:", err)
       alert("Errore durante la modifica del pacchetto.")
     }
   }
@@ -151,7 +151,7 @@ const EditPackageModal = ({ pkg, availableShows, onUpdate }) => {
           </div>
 
           <DialogFooter>
-            <Button type="submit">💾 Salva</Button>
+            <Button type="submit">Salva</Button>
           </DialogFooter>
         </form>
       </DialogContent>
